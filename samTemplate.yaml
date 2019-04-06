@@ -8,7 +8,7 @@ Resources:
       Handler: server.lambda_handler
       Runtime: nodejs8.10
       CodeUri: ./LambdaCode
-      Description: 'Lambda function for CD Demo'
+      Description: 'Lambda function for Graphql Backend'
       MemorySize: 128
       Timeout: 30
       Role: 'arn:aws:iam::966653973445:role/service-role/DrawOverImage'
