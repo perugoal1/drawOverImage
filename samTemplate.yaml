@@ -20,4 +20,4 @@ Resources:
             Method: get
       Environment:
         Variables:
-          REGION: ap-southeast-2
+          REGION: us-east-1
