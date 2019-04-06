@@ -1,7 +1,11 @@
-import boto3 from boto3;
+const aws = require("aws-sdk")
 
-ec2 = boto3.client('ec2');
-exports.lambda_handler = (event, context)=>{
-    response = ec2.describe_availability_zones()
-    return {"statusCode": 200, "body": (response)};
-}
+
+exports.lambda_handler = async (event) => {
+    // TODO implement
+    const response = {
+        statusCode: 200,
+        body: JSON.stringify(process.env.AWS_REGION),
+    };
+    return response;
+};
