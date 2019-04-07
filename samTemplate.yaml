@@ -13,11 +13,6 @@ Resources:
       Timeout: 30
       Role: 'arn:aws:iam::966653973445:role/service-role/DrawOverImage'
       Events:
-        PhotoUpload:
-          Type: S3
-          Properties:
-            Bucket: my-photo-bucket
-            Events: s3:ObjectCreated:*
         getAZsAPI:
           Type: Api
           Properties:
