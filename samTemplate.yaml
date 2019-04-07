@@ -13,17 +13,15 @@ Resources:
       Timeout: 30
       Role: 'arn:aws:iam::966653973445:role/service-role/DrawOverImage'
       Events:
+        PhotoUpload:
+          Type: S3
+          Properties:
+            Bucket: my-photo-bucket
         getAZsAPI:
           Type: Api
           Properties:
             Path: /graphql
             Method: post
-            
-        draw-over-imagess:
-          Type: S3
-          Properties:
-            Bucket: !Ref SrcBucket
-            Events: s3:ObjectCreated:*
       Environment:
         Variables:
           REGION: us-east-1
