@@ -17,6 +17,7 @@ Resources:
           Type: S3
           Properties:
             Bucket: my-photo-bucket
+            Events: s3:ObjectCreated:*
         getAZsAPI:
           Type: Api
           Properties:
