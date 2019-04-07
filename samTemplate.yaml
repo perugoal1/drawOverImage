@@ -18,8 +18,9 @@ Resources:
           Properties:
             Path: /graphql
             Method: post
-        draw-over-images:
-          Type: S3
+            
+        draw-over-imagess:
+          Type: AWS::S3::Bucket
           Properties:
             Bucket: !Ref SrcBucket
             Events: s3:ObjectCreated:*
