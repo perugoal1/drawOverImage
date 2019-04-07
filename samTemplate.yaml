@@ -20,7 +20,7 @@ Resources:
             Method: post
             
         draw-over-imagess:
-          Type: AWS::S3::Bucket
+          Type: S3
           Properties:
             Bucket: !Ref SrcBucket
             Events: s3:ObjectCreated:*
