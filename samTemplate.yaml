@@ -16,8 +16,13 @@ Resources:
         getAZsAPI:
           Type: Api
           Properties:
-            Path: /getazs
-            Method: get
+            Path: /graphql
+            Method: post
+        draw-over-images:
+          Type: S3
+          Properties:
+            Bucket: !Ref SrcBucket
+            Events: s3:ObjectCreated:*
       Environment:
         Variables:
           REGION: us-east-1
