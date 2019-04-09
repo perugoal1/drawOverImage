@@ -3,13 +3,15 @@ const {
     graphql,
     GraphQLSchema
   } = require('graphql')
+
   
 const query = require('./queries.js');  
 const mutation = require('./mutations.js');  
 
 
   const schema = new GraphQLSchema({
-    query
+    query,
+    mutation
   })
   
   

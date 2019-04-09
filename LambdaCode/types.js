@@ -23,6 +23,10 @@ const Images = new GraphQLObjectType({
 
 
 
+module.exports = {Images};
+
+
+
 
 
 
