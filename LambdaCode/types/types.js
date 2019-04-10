@@ -6,7 +6,7 @@ const {
   GraphQLList,
   GraphQLInt,
   GraphQLBoolean
-} = graphql;
+} = graphql ;
 
 
 const Images = new GraphQLObjectType({
