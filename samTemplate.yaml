@@ -17,7 +17,7 @@ Resources:
           Type: Api
           Properties:
             Path: /graphql
-            Method: post
+            Method: get
       Environment:
         Variables:
           REGION: us-east-1
