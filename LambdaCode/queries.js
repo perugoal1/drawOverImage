@@ -1,58 +1,84 @@
 const {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLNonNull
-  } = require('graphql');
-  
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLList
+} = require('graphql');
+
 const aws= require("aws-sdk");
-const ImagesType = require("./types").Images;
+const ImagesType = require("./types/types").Images;
 
-var s3 = new aws.S3({
-  apiVersion: '2006-03-01',
-  params: {Bucket: 'draw-over-image-uploads'}
+let s3 = new aws.S3({
+apiVersion: '2006-03-01',
+params: {Bucket: 'draw-over-image-uploads'}
 });
-  
-const upLoadData = ( filename) => {
-  
 
-const base64Data = new Buffer(''.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-const type = base64.split(';')[0].split('/')[1]
+let docClient = new aws.DynamoDB.DocumentClient();
 
-    s3.upload({
-      Key: `${filename}.${type}`,
-      Body: base64Data,
-      ACL: 'public-read',
-      ContentEncoding: 'base64',
-      ContentType: `image/${type}` 
-    }, function(err, data) {
-      if (err) {
-        return console.log('There was an error uploading your photo: ', err.message);
-      }
-      console.log(data);
-    });
-    return `Hello, ${firstName}.`
-  
-}
 
 const RootQueryType = new GraphQLObjectType({
-      name: 'RootQueryType', 
-      fields: {
-        greeting: {
-          args: { 
-            name : { type: GraphQLString } ,
-            overlay : { type: GraphQLString } ,
-            width : { type: GraphQLString } ,
-            height : { type: GraphQLString } ,
-            image : { type: GraphQLString } ,
-          },
-          type: ImagesType,
-          resolve: (parent, args) => {
-              upLoadData(args)
-          }
+    name: 'RootQueryType', 
+    fields: {
+      getImageData: {
+        args: { 
+          id : { type: GraphQLID }
+        },
+        type: ImagesType,
+        resolve: (parent, {id}) => {
+           return getImageData(id)
+           
+        }
+      },
+      getAllData: {
+        args: { 
+          id : { type: GraphQLID }
+        },
+        type: new GraphQLList(ImagesType),
+        resolve: (parent, {id}) => {
+           return getAllData(id)
+           
         }
       }
-    })
+    }
+  });
+  
+  
+const getImageData = ( id ) => {
+return new Promise(function(resolve, reject){ 
+  var params = {
+      AttributesToGet: [
+        "id",
+        "name",
+        "overlay",
+        "width",
+        "height",
+        "url"
+      ],
+      TableName : "Draw-Image",
+      Key : { 
+        'id' : parseInt(id)
+      }
+    }
+    
+    
+    
+    docClient.get(params, function(err, data) {
+          if (err) console.log(err);
+          else  resolve(data.Item);
+    });
+ });
+ 
+}
+
+const getAllData  = () => {
+return new Promise(function(resolve, reject){ 
+    
+    docClient.scan({TableName : "Draw-Image"}, function(err, data) {
+          if (err) console.log(err);
+          else  resolve(data.Items);
+    });
+});
+
+};
 
 
 module.exports = RootQueryType;

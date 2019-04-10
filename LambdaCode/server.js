@@ -15,8 +15,15 @@ const mutation = require('./mutations.js');
   })
   
   
-module.exports.lambda_handler = (event, context, callback) => graphql(schema, event.queryStringParameters.query)
-    .then(
-    result => callback(null, {statusCode: 200, body: JSON.stringify(result)}),
-    err => callback(err)
-)
+module.exports.lambda_handler = (event, context, callback) =>{ 
+    return graphql(schema, event.queryStringParameters.query)
+      .then(function(result){
+          console.log(result)
+          return result
+      })
+      .catch(function(err){
+          console.log(err)
+          return err
+      });
+  
+}

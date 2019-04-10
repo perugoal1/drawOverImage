@@ -2,18 +2,19 @@ const {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLNonNull
+    GraphQLNonNull,
+    GraphQLID
   } = require('graphql');
 
+const aws= require("aws-sdk");
+const ImagesType = require("./types/types").Images;
 
-const ImagesType = require("./types").Images;
-
-var s3 = new aws.S3({
+let s3 = new aws.S3({
     apiVersion: '2006-03-01',
     params: {Bucket: 'draw-over-image-uploads'}
 });
 
-var docClient = new aws.DynamoDB.DocumentClient();
+let docClient = new aws.DynamoDB.DocumentClient();
     
 
   
@@ -21,7 +22,7 @@ const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: () => ( {
       uploadImageData: {
-        type: ImagesType,
+        type:ImagesType,
         args: {
             name : { type: GraphQLString } ,
             overlay : { type: GraphQLString } ,
@@ -30,7 +31,7 @@ const mutation = new GraphQLObjectType({
             image : { type: GraphQLString } 
         },
         resolve(parentValue, { name , overlay , width, height, image }, req) {
-          return upLoadData(id, answers, req, room );
+          return upLoadData(name , overlay , width, height, image);
         }
       }
     })
@@ -41,10 +42,10 @@ const mutation = new GraphQLObjectType({
 const upLoadData = ( name , overlay , width, height, image  ) => {
     return new Promise(function(resolve, reject){ 
             const base64Data = new Buffer(image.replace(/^data:image\/\w+;base64,/, ""), 'base64');
-            const type = base64.split(';')[0].split('/')[1]
+            const type = image.split(';')[0].split('/')[1]
             
                 s3.upload({
-                Key: `${filename}.${type}`,
+                Key: `${name}.${type}`,
                 Body: base64Data,
                 ACL: 'public-read',
                 ContentEncoding: 'base64',
@@ -53,21 +54,25 @@ const upLoadData = ( name , overlay , width, height, image  ) => {
                 if (err) {
                     return console.log('There was an error uploading your photo: ', err.message);
                 }
+                console.log(data);
                 
                 let params = {
-                    id : new Date().valueOf(),
-                    name,
-                    overlay,
-                    width,
-                    height,
-                    url : data.Location
+                    TableName: "Draw-Image",
+                        Item: {
+                            id : new Date().valueOf(),
+                            name,
+                            overlay,
+                            width,
+                            height,
+                            url : data.Location
+                        }
                 }
 
 
                 docClient.put(params, function(err, data) {
-                    console.log(data);
+                    console.log(data.Item);
                         if (err) console.log(err);
-                        else  resolve(data);
+                        else  resolve(data.Item);
                     });
                 });
     });
