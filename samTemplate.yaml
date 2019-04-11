@@ -13,10 +13,20 @@ Resources:
       Timeout: 30
       Role: 'arn:aws:iam::966653973445:role/service-role/DrawOverImage'
       Events:
-        getAZsAPI:
+        GetRequest:
           Type: Api
           Properties:
             Path: /graphql
+            Method: get
+        PostRequest:
+          Type: Api
+          Properties:
+            Path: /graphql
+            Method: post
+        GraphiqlGetRequest:
+          Type: Api
+          Properties:
+            Path: /graphiql
             Method: get
       Environment:
         Variables:
