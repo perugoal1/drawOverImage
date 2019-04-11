@@ -29,7 +29,7 @@ const mutation = require('./mutations.js');
   
 // }
 
-exports.graphqlHandler = server.graphqlLambda({ schema: myGraphQLSchema });
+exports.graphqlHandler = server.graphqlLambda({ schema: schema });
 exports.graphiqlHandler = server.graphiqlLambda({
     endpointURL: '/Prod/graphql'
 });
