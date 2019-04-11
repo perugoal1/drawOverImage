@@ -23,11 +23,6 @@ Resources:
           Properties:
             Path: /graphql
             Method: post
-        GraphiqlGetRequest:
-          Type: Api
-          Properties:
-            Path: /graphiql
-            Method: get
       Environment:
         Variables:
           REGION: us-east-1
