@@ -3,7 +3,7 @@ const {
     graphql,
     GraphQLSchema
   } = require('graphql');
-var server = require("apollo-server-lambda"),
+var server = require("apollo-server-lambda");
 
   
 const query = require('./queries.js');  
