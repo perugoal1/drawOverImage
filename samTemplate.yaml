@@ -2,14 +2,6 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: CD Demo Lambda
 
-Globals:
-  Api:
-    EndpointConfiguration: REGIONAL
-    Cors:
-      AllowOrigin: "'redacted'"
-      AllowHeaders: "'Accept,Origin,Content-Type,X-Amz-Date,X-Requested-With,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
-      AllowMethods: "'POST,GET,OPTIONS'"
-
 Resources:
   DrawOverImageGraphqlAPI:
     Type: 'AWS::Serverless::Function'
