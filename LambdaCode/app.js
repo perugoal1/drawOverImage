@@ -17,7 +17,7 @@ const schema = new GraphQLSchema({
 
 
 const app = express();
-
+app.use(cors());
 app.use( body_parser.json({ limit: '50mb' }) );
 
 app.use(

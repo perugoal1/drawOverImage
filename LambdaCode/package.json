@@ -1,20 +1,18 @@
 {
-    "name": "draw-over-image",
-    "version": "1.0.0",
-    "description": "Draw Over Image GraphQL Application",
-    "main": "app.js",
-    "scripts": {
-
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-      "aws-serverless-express": "^2.2.0",
-      "body-parser": "^1.17.1",
-      "express": "^4.15.2",
-      "express-graphql": "^0.6.4",
-      "graphql": "^0.9.6"
-    }
+  "name": "draw-over-image",
+  "version": "1.0.0",
+  "description": "Draw Over Image GraphQL Application",
+  "main": "app.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-serverless-express": "^2.2.0",
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.5",
+    "express": "^4.15.2",
+    "express-graphql": "^0.6.4",
+    "graphql": "^0.9.6"
   }
-  
+}
