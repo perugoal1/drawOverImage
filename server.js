@@ -1,9 +1,10 @@
 'use strict';
 
-const app = require('./src/app');
+const app = require('./LambdaCode/app');
+const aws = require("aws-sdk");
 
 // let's set the port on which the server will run
-app.set( 'port', 1337 );
+app.set( 'port', 4000 );
 
 // start the server
 app.listen(

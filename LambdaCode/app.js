@@ -5,6 +5,7 @@ const body_parser = require('body-parser');
 const GraphQL = require('graphql');
 const { GraphQLSchema } = GraphQL;
 const expressGraphQL = require('express-graphql');
+const aws = require("aws-sdk");
 
 const query = require('./queries.js');  
 const mutation = require('./mutations.js');  
@@ -24,7 +25,7 @@ app.use(
 	expressGraphQL( () => {
 		return {
 			graphiql: true,
-			schema: GraphQLSchema,
+			schema,
 		}
 	})
 );
