@@ -6,7 +6,7 @@ Resources:
   DrawOverImageGraphqlAPI:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: lambda.lambda_handler
+      Handler: lambda.handler
       Runtime: nodejs8.10
       CodeUri: ./LambdaCode
       Description: 'Lambda function for Graphql Backend'
@@ -18,7 +18,7 @@ Resources:
           Type: Api
           Properties:
             Path: /graphql
-            Method: get
+            Method: any
       Environment:
         Variables:
           REGION: us-east-1
