@@ -14,7 +14,6 @@ const Images = new GraphQLObjectType({
   fields: () => ( {
       id: { type: GraphQLID },
       name: { type:  GraphQLString },
-      overlay :{ type:  GraphQLString },
       width :{ type:  GraphQLString },
       height :{ type:  GraphQLString },
       url : { type:  GraphQLString }

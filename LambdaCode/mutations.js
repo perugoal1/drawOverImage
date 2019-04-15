@@ -25,13 +25,12 @@ const mutation = new GraphQLObjectType({
         type:ImagesType,
         args: {
             name : { type: GraphQLString } ,
-            overlay : { type: GraphQLString } ,
             width : { type: GraphQLString } ,
             height : { type: GraphQLString } ,
             image : { type: GraphQLString } 
         },
-        resolve(parentValue, { name , overlay , width, height, image }, req) {
-          return upLoadData(name , overlay , width, height, image);
+        resolve(parentValue, { name , width, height, image }, req) {
+          return upLoadData(name , width, height, image);
         }
       }
     })
@@ -39,7 +38,7 @@ const mutation = new GraphQLObjectType({
 
 
 
-const upLoadData = ( name , overlay , width, height, image  ) => {
+const upLoadData = ( name , width, height, image  ) => {
     return new Promise(function(resolve, reject){ 
             const base64Data = new Buffer(image.replace(/^data:image\/\w+;base64,/, ""), 'base64');
             const type = image.split(';')[0].split('/')[1]
@@ -61,7 +60,6 @@ const upLoadData = ( name , overlay , width, height, image  ) => {
                         Item: {
                             id : new Date().valueOf(),
                             name,
-                            overlay,
                             width,
                             height,
                             url : data.Location

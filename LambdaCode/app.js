@@ -5,6 +5,7 @@ const body_parser = require('body-parser');
 const GraphQL = require('graphql');
 const { GraphQLSchema } = GraphQL;
 const expressGraphQL = require('express-graphql');
+const cors = require('cors');
 const aws = require("aws-sdk");
 
 const query = require('./queries.js');  

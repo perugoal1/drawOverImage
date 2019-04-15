@@ -48,7 +48,6 @@ return new Promise(function(resolve, reject){
       AttributesToGet: [
         "id",
         "name",
-        "overlay",
         "width",
         "height",
         "url"
